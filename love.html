@@ -1,0 +1,53 @@
+<?php
+$lcname = strtolower(preg_replace("/ /", "", strip_tags(trim($_POST['per1'] . $_POST['per2']))));
+$alp = count_chars($lcname);
+ 
+for ($i=97; $i <= 122; $i++)
+    {
+    if ($alp[$i] != false)
+        {
+        $answer = strlen($alp[$i]);
+ 
+        if ($answer < 2)
+            {
+            $calc[]=$alp[$i];
+            }
+        else
+            {
+            for ($a=0; $a < $answer; $a++)
+                {
+                $calc[]=substr($alp[$i], $a, 1);
+                }
+            }
+        }
+    }
+ 
+while (($letter=count($calc)) > 2)
+    {
+    $lettermitte = ceil($letter / 2);
+    for ($i=0; $i < $lettermitte; $i++)
+        {
+        $sum = array_shift($calc) + array_shift($calc);
+        $answer =strlen($sum);
+ 
+        if ($answer < 2)
+            {
+            $addcalc[]=$sum;
+            }
+        else
+            {
+            for ($a=0; $a < $answer; $a++)
+                {
+                $addcalc[]=substr($sum, $a, 1);
+                }
+            }
+        }
+    $answers=count($addcalc);
+    for ($b=0; $b < $answers; $b++)
+        {
+        $calc[]=$addcalc[$b];
+        }
+    array_splice($addcalc, 0);
+    }
+echo $calc[0] . $calc[1];
+?>
